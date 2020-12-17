@@ -9,6 +9,7 @@
 ## vue2 和 vue3 的区别
 
 > 1.vue3 仍然可以使用vue2的方式编写代码
+
 > 2.开发复杂项目的时候推荐使用vue3的编写方式
 
 - 使用**createApp**创建实例
@@ -53,8 +54,11 @@ Vue.use("插件名");
 3. vue实例无法对setup中的值做**响应式处理**
 
 > 使用**ref**对setup中的数据做处理```let countRef = ref(0)```这样就可以完成响应式
+
 > 使用**ref**后**count会变为一个代理对象**，实例中的count实际为 **count.vulue**
+
 > 在**setup**中count仍然是一个对象，所以如果要操作count应该写成**count.value**
+
 > **官方小技巧**：凡是在setup中创建的响应数据都加上**Ref后缀**
 
 ```js
