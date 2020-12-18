@@ -1,29 +1,18 @@
 <template>
- <p>
-   {{countRef}}
-   <button @click="increase">点击</button>
- </p>
+<input type="text" v-model="NewTaskTitleRef">
+<button @click="addTaskToListFunc">点击</button>
 </template>
 
 <script>
-import { ref } from "vue"
+import useToDoList from "./compositionApi/useToDoList";
+import useAddTaskToList from "./compositionApi/useAddTaskToList";
 export default {
-  name: 'App',
   setup(){
-    let countRef = ref(0);
-    console.log(countRef);
-    const increase = () => {
-      console.log("执行了");
-      countRef.value ++;
+    const {toDoListRef} = useToDoList()
+    return {
+      toDoListRef,
+      ...useAddTaskToList(toDoListRef.value)
     }
-    return{
-      countRef,
-      increase
-    }
-  },
-  created () {
-    console.log("实例初始化");
   }
-}
+} 
 </script>
-31

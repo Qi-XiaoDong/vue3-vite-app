@@ -94,3 +94,76 @@ setup () {
   }
 }
 ```
+
+## toDoList 小练习
+
+### 新增任务
+
+#### 一、任务列表获取和保存
+
+> **watchEffect** 可以监听响应数据的变化
+
+```js
+/**
+ * 1. 产生一个响应数据toDoListRef
+ * 2. toDoListRef数据的来源为 localStorage(模拟数据请求);
+ * 3. 使用watchEffect监听toDoListRef数据的变化
+ * 4. toDoListRef数据变化后保存到localStorage(模拟数据提交);
+ */
+import { ref, watchEffect} from "vue"
+import {GetAndSaveToDoList} from "../util"
+export default function useToDoList () {
+  // 需要一个任务列表
+  let toDoListRef = ref(GetAndSaveToDoList.GetToDoListFromLocal());
+  // 测试
+  window.toDoListRef = toDoListRef
+  // 监控任务列表的改变
+  watchEffect(() => {
+    GetAndSaveToDoList.SaveToDoListToLocal(toDoListRef.value);
+  })
+  return {
+      toDoListRef
+  }
+}
+```
+
+### 二、实现任务的新增
+
+> 需要一个任务名称双向绑定到文本框中
+
+> 需要一个将新增的任务保存到本地缓存的函数
+
+```js
+/**
+ * 1. 产生一个响应的数据NewTaskTitleRef，
+ * 2. 产生一个将新增的数据添加到任务列表的方法 addTaskToListFunc
+ */
+import { ref } from "vue";
+import {createid} from "../util"
+/**
+ * 新增一个任务，并且加入到任务列表中
+ * @param {*} toDoList 任务列表
+ */
+export default function useAddTaskToList (toDoList) {
+  // 新增的任务名称
+  let NewTaskTitleRef = ref(""); 
+  // 新增任务的方法
+  let addTaskToListFunc = () => { 
+    let title = NewTaskTitleRef.value && NewTaskTitleRef.value.trim();
+    if (!title) {
+      return;
+    }
+    // 产生一个新增的任务
+    let task = {
+      value: title,
+      uuid: createid(),
+      completed: false,
+    }
+    toDoList.push(task)
+  } 
+  return {
+    NewTaskTitleRef, 
+    addTaskToListFunc, 
+  }
+}
+```
