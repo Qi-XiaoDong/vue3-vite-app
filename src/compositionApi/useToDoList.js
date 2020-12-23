@@ -13,6 +13,7 @@ export default function useToDoList () {
   window.toDoListRef = toDoListRef
   // 监控任务列表的改变
   watchEffect(() => {
+    console.log("任务列表改变了");
     GetAndSaveToDoList.SaveToDoListToLocal(toDoListRef.value);
   })
   return {

@@ -23,7 +23,8 @@ export default function useAddTaskToList (toDoList) {
       uuid: createid(),
       completed: false,
     }
-    toDoList.push(task)
+    toDoList.push(task);
+    NewTaskTitleRef.value = "";
   } 
   return {
     NewTaskTitleRef, 

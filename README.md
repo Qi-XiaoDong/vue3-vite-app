@@ -167,3 +167,39 @@ export default function useAddTaskToList (toDoList) {
   }
 }
 ```
+
+### 实现任务筛选
+
+#### 一、计算属性
+
+```js
+import {computed} from "vue'
+ const afterScreenKeyTaskListRef = computed(() => {
+    console.log(toDoListRef.value, screenKeyRef.value);
+    return screenTask(toDoListRef.value, screenKeyRef.value)
+
+  });
+
+  const xxx = computed({
+    get () {
+
+    },
+    set () {
+
+    }
+  });
+```
+#### 二、 踩坑日记
+
+- 在不同的use函数传值的时候**形参要和实参**的名字保持一致
+
+#### 三、生命周期在set中的使用
+
+```js
+import {onMount} from "vue"
+
+onMount(() => {
+  
+});
+
+```
